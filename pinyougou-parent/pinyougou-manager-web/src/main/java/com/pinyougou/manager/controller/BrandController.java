@@ -27,6 +27,7 @@ public class BrandController {
 	
 	/**
 	* 返回全部列表
+	* 结合项目中的条件查询,该方法已经被search所替代
 	* @return
 	*/
 	@RequestMapping("/findPage")
@@ -77,6 +78,11 @@ public class BrandController {
 			e.printStackTrace();
 			return new Result(false, "删除失败"); 
 		}
+	}
+	
+	@RequestMapping("/search")
+	public PageResult search(@RequestBody TbBrand brand, int page, int rows) {
+		return brandService.findPage(brand, page, rows);
 	}
 	
 	
