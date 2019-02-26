@@ -1,0 +1,13 @@
+package com.itheima.demo.service.impl;
+
+import com.itheima.demo.service.UserService;
+
+public class UserServiceImpl implements UserService {
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

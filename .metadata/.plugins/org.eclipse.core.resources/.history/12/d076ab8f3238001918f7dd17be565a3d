@@ -1,0 +1,16 @@
+package com.pinyougou.sellergoods.service.impl;
+
+import java.util.List;
+
+import com.pinyougou.pojo.TbBrand;
+import com.pinyougou.sellergoods.service.BrandService;
+
+public class BrandServiceImpl implements BrandService {
+
+	@Override
+	public List<TbBrand> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
