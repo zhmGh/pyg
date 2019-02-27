@@ -20,13 +20,55 @@
 <script src="../plugins/angularjs/pagination.js"></script>
 <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
 <!-- 分页组件结束 -->
-<script type="text/javascript">
+
+<!-- 分离前端Angular -->
+<script type="text/javascript" src="../js/base_pagination.js"></script>
+<script type="text/javascript" src="../js/controller/baseController.js"></script>
+<script type="text/javascript" src="../js/controller/brandController.js"></script>
+<script type="text/javascript" src="../js/service/brandService.js"></script>
+
+
+<!-- <script type="text/javascript">
 	var app = angular.module('pinyougou', [ 'pagination' ]);
-	app.controller('brandController', function($scope, $http) {
+	
+	app.service('brandService',function($http){
+		
+		this.findAll = function(){
+			return $http.get('../brand/findAll.do');
+		};
+		
+		this.findPage = function(page,rows){
+			return $http.get('../brand/findPage.do?page=' + page + '&rows=' + rows);
+		};
+		
+		this.add = function(entity){
+			return $http.post('../brand/add.do', entity);
+		};
+		
+		this.update = function(entity){
+			return $http.post('../brand/update.do', entity);
+		};
+		
+		this.findOne = function(id){
+			return $http.post('../brand/findOne.do?id=' + id);
+		};
+		
+		this.dele = function(ids){
+			return $http.get('../brand/delete.do?ids=' + ids);
+		};
+		
+		this.search = function(page,rows,searchEntity){
+			return $http.post('../brand/search.do?page=' + page + '&rows=' + rows,searchEntity);
+		};
+		
+	});
+	
+	
+	app.controller('brandController', function($scope, $http,brandService) {
 
 		//查询所有
 		$scope.findAll = function() {
-			$http.get('../brand/findAll.do').success(function(brandList) {
+			brandService.findAll().success(function(brandList) {
 				$scope.list = brandList;
 			});
 		}
@@ -54,7 +96,7 @@
 
 		//分页
 		$scope.findPage = function(page, rows) {
-			$http.get('../brand/findPage.do?page=' + page + '&rows=' + rows).success(
+			brandService.findPage(page,rows).success(
 				function(response) {
 					$scope.list = response.rows;
 					//更新总记录数
@@ -64,12 +106,13 @@
 
 		//增加品牌保存 或 修改品牌保存
 		$scope.save = function() {
+			var object = null;
 			if ($scope.entity.id != null) {
-				var method = 'update';
+				object = brandService.update($scope.entity);
 			} else {
-				var method = 'add';
+				object = brandService.add($scope.entity);
 			}
-			$http.post('../brand/' + method + '.do', $scope.entity).success(
+			object.success(
 				function(response) {
 					if (response.success) {
 						$scope.reloadList();
@@ -81,7 +124,7 @@
 
 		//查找当前修改品牌ID
 		$scope.findOne = function(id) {
-			$http.post('../brand/findOne.do?id=' + id).success(
+			brandService.findOne(id).success(
 				function(response) {
 					$scope.entity = response;
 				})
@@ -99,8 +142,8 @@
 		}
 		
 		//删除选中
-		$scope.dele = function(id){
-			$http.get('../brand/delete.do?ids='+$scope.selectIds).success(
+		$scope.dele = function(){
+			brandService.dele($scope.selectIds).success(
 				function(response){
 					if(response.success){
 						//更新列表
@@ -115,7 +158,7 @@
 		$scope.searchEntity={};
 		//条件查询
 		$scope.search=function(page,rows){
-			$http.post('../brand/search.do?page='+page+'&rows='+rows,$scope.searchEntity).success(
+			brandService.search(page,rows,$scope.searchEntity).success(
 				function(response){
 					$scope.paginationConf.totalItems=response.total;//总记录数
 					$scope.list=response.rows;//给列表变量赋值
@@ -123,11 +166,10 @@
 			);
 		}
 		
-		
-		
 
 	});
-</script>
+</script> -->
+
 
 
 </head>
