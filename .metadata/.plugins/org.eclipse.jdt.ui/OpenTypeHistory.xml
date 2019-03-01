@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=dubboxdemo-service/src\/main\/java&lt;com.itheima.demo.service{UserService.java[UserService" modifiers="513" timestamp="1551003809753"/>
-<typeInfo handle="=pinyougou-sellergoods-interface/src\/main\/java&lt;com.pinyougou.sellergoods.service{BrandService.java[BrandService" modifiers="513" timestamp="1551285063385"/>
-<typeInfo handle="=pinyougou-show-web/D:\/develop\/apache-maven-3.5.2\/repository_pinyougou\/org\/springframework\/spring-messaging\/4.2.4.RELEASE\/spring-messaging-4.2.4.RELEASE.jar&lt;org.springframework.messaging.simp.user(UserDestinationResolver.class[UserDestinationResolver" modifiers="1537" timestamp="1468150729505"/>
-<typeInfo handle="=pinyougou-show-web/D:\/develop\/Java\/jdk1.8.0_201\/jre\/lib\/rt.jar&lt;java.nio.file.attribute(UserDefinedFileAttributeView.class[UserDefinedFileAttributeView" modifiers="1537" timestamp="1548037654956"/>
-<typeInfo handle="=pinyougou-show-web/D:\/develop\/apache-maven-3.5.2\/repository_pinyougou\/org\/springframework\/security\/spring-security-core\/4.1.0.RELEASE\/spring-security-core-4.1.0.RELEASE.jar&lt;org.springframework.security.core.userdetails(UserDetailsService.class[UserDetailsService" modifiers="1537" timestamp="1496974636686"/>
-</typeInfoHistroy>

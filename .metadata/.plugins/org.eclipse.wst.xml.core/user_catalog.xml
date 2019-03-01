@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <system systemId="http://www.springframework.org/schema/context/spring-context.xsd" uri="file:///E:/品优购/品优购双元资料V1.5/品优购资源V1.3/约束文件/spring-context-4.2.xsd"/>
-  <system systemId="http://code.alibabatech.com/schema/dubbo/dubbo.xsd" uri="file:///E:/品优购/品优购双元资料V1.5/品优购资源V1.3/约束文件/dubbo.xsd"/>
-  <system systemId="http://www.springframework.org/schema/mvc/spring-mvc.xsd" uri="file:///E:/品优购/品优购双元资料V1.5/品优购资源V1.3/约束文件/spring-mvc-4.2.xsd"/>
-  <system systemId="http://www.springframework.org/schema/beans/spring-beans.xsd" uri="file:///E:/品优购/品优购双元资料V1.5/品优购资源V1.3/约束文件/spring-beans-4.2.xsd"/>
-  <system systemId="http://www.springframework.org/schema/security/spring-security.xsd" uri="file:///E:/品优购/品优购双元资料V1.5/品优购资源V1.3/约束文件/spring-security.xsd"/>
-</catalog>
