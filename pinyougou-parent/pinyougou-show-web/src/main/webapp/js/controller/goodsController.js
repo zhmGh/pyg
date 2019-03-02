@@ -31,19 +31,19 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 		);				
 	}
 	
-	//保存 
-	$scope.save=function(){				
-		var serviceObject;//服务层对象  				
-		if($scope.entity.id!=null){//如果有ID
-			serviceObject=goodsService.update( $scope.entity ); //修改  
-		}else{
-			serviceObject=goodsService.add( $scope.entity  );//增加 
-		}				
-		serviceObject.success(
+	//增加商品
+	$scope.add=function(){
+		$scope.entity.goodsDesc.introduction=editor.html();
+		
+		goodsService.add($scope.entity).success(
 			function(response){
 				if(response.success){
-					//重新查询 
-		        	$scope.reloadList();//重新加载
+					//户用提示成功添加
+					alert("新增成功")
+					//添加成功后把所有填写的内容(除了富文本编辑器)清空
+					$scope.entity={};
+					//清空富文本编辑器内容
+					editor.html('');//清空富文本编辑器
 				}else{
 					alert(response.message);
 				}
