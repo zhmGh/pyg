@@ -149,14 +149,12 @@
 												<th class="sorting">操作</th>
 							            </thead>
 					                    <tbody>
-					                      <tr>					                           
+					                      <tr ng-repeat="pojo in entity.goodsDesc.itemImages">					                           
+									            <td>{{pojo.color}}</td>
 									            <td>
-									            	
+									           		<img alt="" src="{{pojo.url}}" width="100px" height="100px">	            	 
 									            </td>
-									            <td>
-									           		<img alt="" src="{{image_entity.url}}" width="200px" height="200px">	            	 
-									            </td>
-												 <td> <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button></td> 
+												 <td> <button type="button" class="btn btn-default" title="删除" ng-click="remove_image_entity($index)" ><i class="fa fa-trash-o"></i> 删除</button></td> 
 					                      </tr>
 					                    </tbody>
 								 </table> 
@@ -378,7 +376,7 @@
 					                </button>	
 					            </td>
 								<td>
-									<img  src="" width="200px" height="200px">
+									<img  src="{{image_entity.url}}" width="200px" height="200px">
 								</td>
 							</tr>						
 						</table>
@@ -388,7 +386,7 @@
 			
 		</div>
 		<div class="modal-footer">										<!-- 这是图片上传的保存按钮 -->
-			<button class="btn btn-success"  data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success"  data-dismiss="modal" aria-hidden="true" ng-click="add_image_entity()" >保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
