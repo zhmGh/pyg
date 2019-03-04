@@ -77,9 +77,8 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 		);
 	}
 	
-	/**
-	* 上传图片
-	*/
+	
+	//上传图片
 	$scope.uploadFile=function(){ 
 		uploadService.uploadFile().success(function(response) { 
 			if(response.success){//如果上传成功，取出 url
@@ -194,6 +193,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 	 
 	//创建 SKU 列表
 	 $scope.createItemList=function(){
+		 debugger;
 		//初始化展示的规格模板
 		 $scope.entity.itemList=[{spec:{},price:0,num:99999,status:'0',isDefault:'0' } ];
 		 //得到规格选项的集合
@@ -208,6 +208,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,uploa
 	 
 	 //添加列值
 	 addColumn=function(list,columnName,conlumnValues){
+		 debugger;
 		 //新的集合,该集合最后就是展示规格模板列表的集合
 		 var newList=[];
 		 for(var i=0;i<list.length;i++){
