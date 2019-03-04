@@ -24,11 +24,11 @@ public class Goods implements Serializable {
 	public void setGoodsDesc(TbGoodsDesc goodsDesc) {
 		this.goodsDesc = goodsDesc;
 	}
-	public List<TbItem> getTbItems() {
+	public List<TbItem> getItemList() {
 		return itemList;
 	}
-	public void setTbItems(List<TbItem> tbItems) {
-		this.itemList = tbItems;
+	public void setItemList(List<TbItem> itemList) {
+		this.itemList = itemList;
 	}
 		
 }

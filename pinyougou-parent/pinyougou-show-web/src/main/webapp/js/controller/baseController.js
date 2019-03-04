@@ -40,4 +40,18 @@ app.controller('baseController',function($scope){
 		return value;
 	}
 	
+	//在list集合中根据key查询对象
+	$scope.searchObjectByKey=function(list,key,keyValue){
+		//循环集合
+		for(var i=0;i<list.length;i++){
+			//如果某个key所对应的keyValue相等,则返回这个key-keyValue
+			if(list[i][key]==keyValue){
+				return list[i];
+			}
+		}
+		//循环结束后,说明不存在,直接返回null即可
+		return null;
+	}
+	
+	
 })

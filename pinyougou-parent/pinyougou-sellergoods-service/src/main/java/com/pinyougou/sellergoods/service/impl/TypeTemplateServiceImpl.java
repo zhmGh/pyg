@@ -1,10 +1,17 @@
 package com.pinyougou.sellergoods.service.impl;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.pinyougou.mapper.TbSpecificationOptionMapper;
 import com.pinyougou.mapper.TbTypeTemplateMapper;
+import com.pinyougou.pojo.TbSpecificationOption;
+import com.pinyougou.pojo.TbSpecificationOptionExample;
 import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.pojo.TbTypeTemplateExample;
 import com.pinyougou.pojo.TbTypeTemplateExample.Criteria;
@@ -22,6 +29,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 
 	@Autowired
 	private TbTypeTemplateMapper typeTemplateMapper;
+	
+	@Autowired
+	private TbSpecificationOptionMapper specificationOptionMapper;
 	
 	/**
 	 * 查询全部
@@ -104,6 +114,35 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 		
 		Page<TbTypeTemplate> page= (Page<TbTypeTemplate>)typeTemplateMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
+	}
+		
+	
+	/**
+	 * 通过模板得到的ID去查询规格选项列表
+	 * @param id
+	 * @return
+	 */
+	public List<Map> findSpecList(Long id) {
+		//传入模板ID查询,得到的是对象  [spec_ids:{"id":27,"text":"网络"},{"id":32,"text":"机身内存"},{...}]
+		TbTypeTemplate typeTemplate = typeTemplateMapper.selectByPrimaryKey(id);
+		//将对象spec_ids拿出,转换为map对象[{"id":27,"text":"网络"},{"id":32,"text":"机身内存"}]
+		List<Map> list = JSON.parseArray(typeTemplate.getSpecIds(), Map.class) ;
+		
+		for(Map map:list) {
+			
+			//通过得到id去查询规格选项表,得到所有规格
+			TbSpecificationOptionExample example=new TbSpecificationOptionExample();
+			com.pinyougou.pojo.TbSpecificationOptionExample.Criteria criteria = example.createCriteria();
+			
+			//注意通过Map的key('id')可以查询得到Integer类型,但是andSpecIdEqualTo()的参数需要Long类型
+			//只能new Long()进行转换,(Long)是不行的
+			criteria.andSpecIdEqualTo(new Long((Integer)map.get("id")));
+			List<TbSpecificationOption> options = specificationOptionMapper.selectByExample(example);
+			
+			map.put("options", options);
+		}
+		
+		return list;
 	}
 	
 }

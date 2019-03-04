@@ -5,7 +5,7 @@
     <artifactId>pinyougou-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>pinyougou-show-web</artifactId>
+  <artifactId>pinyougou-shop-web</artifactId>
   <packaging>war</packaging>
   
   <dependencies>

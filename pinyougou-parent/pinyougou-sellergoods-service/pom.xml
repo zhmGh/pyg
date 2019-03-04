@@ -62,7 +62,7 @@
 	</dependency>
 	<dependency>
 		<groupId>com.alibaba</groupId>
-		<artifactId>fastjson</artifactId>		
+		<artifactId>fastjson</artifactId>	
 	</dependency>
 	<dependency>
 		<groupId>javassist</groupId>
@@ -91,6 +91,11 @@
 	<dependency>
 		<groupId>com.pinyougou</groupId>
 		<artifactId>pinyougou-dao</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.pinyougou</groupId>
+		<artifactId>pinyougou-common</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   </dependencies>
