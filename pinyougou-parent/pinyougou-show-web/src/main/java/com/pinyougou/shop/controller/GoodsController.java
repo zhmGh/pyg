@@ -68,7 +68,19 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public Result update(@RequestBody TbGoods goods){
+	public Result update(@RequestBody Goods goods){
+		//修改操作可能涉及到安全问题,如某账号修改其他账号的商品,是要进行过滤操作的
+		//简单的操作是用登录账号的ID限制对其他数据 增删改查 这里仅仅对修改进行限制
+		//获取当前的登录账号的ID
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		//获取数据库的商品( 通过当前传入的Goods商品的Id)
+		Goods goods2 = goodsService.findOne(goods.getGoods().getId());
+		
+		if (!goods2.getGoods().getSellerId().equals(sellerId) || !goods.getGoods().getSellerId().equals(sellerId)) {
+			return new Result(false, "非法操作");
+		}
+		
 		try {
 			goodsService.update(goods);
 			return new Result(true, "修改成功");
@@ -84,7 +96,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbGoods findOne(Long id){
+	public Goods findOne(Long id){
 		return goodsService.findOne(id);		
 	}
 	
@@ -104,7 +116,7 @@ public class GoodsController {
 		}
 	}
 	
-		/**
+	/**
 	 * 查询+分页
 	 * @param brand
 	 * @param page
@@ -113,7 +125,42 @@ public class GoodsController {
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
+		//为了满足显现时带着商家ID,我们用商家登录用户的ID设置ID
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		goods.setSellerId(sellerId);
+		
 		return goodsService.findPage(goods, page, rows);		
+	}
+	
+	/**
+	 * 更新上下架状态
+	 * @param ids
+	 * @param status
+	 */
+	@RequestMapping("/updateMarketable")
+	public Result updateMarketable(Long[] ids, String marketable){
+		System.out.println("执行了updateMarketable");
+		System.out.println("marketable="+marketable);
+		try {
+			//在修改上架状态前先要判断是否审核
+			for(Long id:ids){
+				Goods goods = goodsService.findOne(id);
+				String status = goods.getGoods().getAuditStatus();
+				//status=0是未审核的商品
+				System.out.println(id);
+				if (status.equals("0") || status == null) {
+					return new Result(false, "存在未审核的商品");
+				}
+			}
+			System.out.println("11111");
+			goodsService.updateMarketable(ids, marketable);
+			System.out.println("成功");
+			return new Result(true, "成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("失败2");
+			return new Result(false, "失败");
+		}
 	}
 	
 }
