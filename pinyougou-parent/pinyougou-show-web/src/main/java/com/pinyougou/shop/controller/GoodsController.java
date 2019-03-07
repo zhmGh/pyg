@@ -139,26 +139,20 @@ public class GoodsController {
 	 */
 	@RequestMapping("/updateMarketable")
 	public Result updateMarketable(Long[] ids, String marketable){
-		System.out.println("执行了updateMarketable");
-		System.out.println("marketable="+marketable);
 		try {
 			//在修改上架状态前先要判断是否审核
 			for(Long id:ids){
 				Goods goods = goodsService.findOne(id);
 				String status = goods.getGoods().getAuditStatus();
 				//status=0是未审核的商品
-				System.out.println(id);
-				if (status.equals("0") || status == null) {
+				if (status.equals("0") || status == null || status.equals("2")) {
 					return new Result(false, "存在未审核的商品");
 				}
 			}
-			System.out.println("11111");
 			goodsService.updateMarketable(ids, marketable);
-			System.out.println("成功");
 			return new Result(true, "成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("失败2");
 			return new Result(false, "失败");
 		}
 	}
