@@ -1,8 +1,10 @@
 package com.pinyougou.sellergoods.service.impl;
+import java.io.ObjectOutputStream.PutField;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
@@ -90,8 +92,10 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 		}		
 	}
 	
-	
-		@Override
+	/**
+	 * 查询特定页的数据
+	 */
+	@Override
 	public PageResult findPage(TbTypeTemplate typeTemplate, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		
@@ -99,7 +103,7 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 		Criteria criteria = example.createCriteria();
 		
 		if(typeTemplate!=null){			
-						if(typeTemplate.getName()!=null && typeTemplate.getName().length()>0){
+			if(typeTemplate.getName()!=null && typeTemplate.getName().length()>0){
 				criteria.andNameLike("%"+typeTemplate.getName()+"%");
 			}
 			if(typeTemplate.getSpecIds()!=null && typeTemplate.getSpecIds().length()>0){
@@ -114,9 +118,37 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 	
 		}
 		
-		Page<TbTypeTemplate> page= (Page<TbTypeTemplate>)typeTemplateMapper.selectByExample(example);		
+		Page<TbTypeTemplate> page= (Page<TbTypeTemplate>)typeTemplateMapper.selectByExample(example);
+		
+		//因为所有的数据在增删改查过程中, 都会经过这里的分页方法,故在这里添加一个缓存机制是最好的设计
+		//缓存处理
+		saveRedis();
+		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+	
+	@Autowired
+	private RedisTemplate redisTemplate;
+	
+	private void saveRedis() {
+		List<TbTypeTemplate> list = findAll();
+		for(TbTypeTemplate template:list) {
+			//获取品牌列表
+			//将JSON对象转换为集合
+			List<Map> brandList = JSON.parseArray(template.getBrandIds(), Map.class);
+			//System.out.println("缓存中的brandList"+brandList);
+			//System.out.println(template.getId());
+			//缓存格式,大key:brandList 小key:模板的ID  value:整个品牌模板的字符串
+			redisTemplate.boundHashOps("brandList").put(template.getId(), brandList);
+			
+			
+			//获取规格列表
+			List<Map> specList = findSpecList(template.getId());
+			redisTemplate.boundHashOps("specList").put(template.getId(),specList);
+		}
+		System.out.println("缓存了品牌列表");
+	}
+	
 		
 	
 	/**
