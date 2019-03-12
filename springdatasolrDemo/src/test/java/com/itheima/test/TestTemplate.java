@@ -130,6 +130,13 @@ public class TestTemplate {
 		
 	}
 	
+	@Test
+	public void a() {
+		String dd = "1";
+		Integer pageNo = Integer.parseInt(dd);
+		System.out.println(pageNo);
+	}
+	
 	
 	
 	

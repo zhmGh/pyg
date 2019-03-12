@@ -150,6 +150,8 @@ public class GoodsController {
 				}
 			}
 			goodsService.updateMarketable(ids, marketable);
+			//把审核过的商品存入solr,*******************未完成
+			//goodsService.findItemListByGoodsIdandStatus(ids, status)
 			return new Result(true, "成功");
 		} catch (Exception e) {
 			e.printStackTrace();
