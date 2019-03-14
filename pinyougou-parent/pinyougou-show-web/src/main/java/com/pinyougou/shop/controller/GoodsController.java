@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.page.service.ItemPageService;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojogroup.Goods;
 import com.pinyougou.sellergoods.service.GoodsService;
@@ -24,6 +25,9 @@ public class GoodsController {
 	@Reference
 	private GoodsService goodsService;
 	
+	@Reference(timeout=40000)
+	private ItemPageService itemPageService;
+
 	/**
 	 * 返回全部列表
 	 * @return
@@ -150,8 +154,14 @@ public class GoodsController {
 				}
 			}
 			goodsService.updateMarketable(ids, marketable);
-			//把审核过的商品存入solr,*******************未完成
+			//把审核过的每个SKU商品存入solr,*******************未完成....此处业务有些复杂
+			//goodsService.findTbItemById()
 			//goodsService.findItemListByGoodsIdandStatus(ids, status)
+			
+			//静态页生成
+			for(Long goodsId:ids){
+				itemPageService.genItemHtml(goodsId);
+			}
 			return new Result(true, "成功");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -18,6 +18,12 @@ public interface GoodsService {
 	 */
 	public List<TbGoods> findAll();
 	
+	/**
+	 * 根据商品的ID找到SKU 即SPU-->所有的SKU
+	 * @param igoodsId
+	 * @return
+	 */
+	public List<TbItem> findTbItemById(Long igoodsId);
 	
 	/**
 	 * 返回分页列表

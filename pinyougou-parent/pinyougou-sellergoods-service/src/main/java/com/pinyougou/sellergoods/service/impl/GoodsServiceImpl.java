@@ -65,6 +65,14 @@ public class GoodsServiceImpl implements GoodsService {
 	public List<TbGoods> findAll() {
 		return goodsMapper.selectByExample(null);
 	}
+	
+	public List<TbItem> findTbItemById(Long igoodsId){
+		TbItemExample example = new TbItemExample();
+		com.pinyougou.pojo.TbItemExample.Criteria criteria = example.createCriteria();
+		criteria.andGoodsIdEqualTo(igoodsId);
+		List<TbItem> itemList = itemMapper.selectByExample(example);
+		return itemList;
+	}
 
 	/**
 	 * 按分页查询

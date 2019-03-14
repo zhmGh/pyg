@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.page.service.ItemPageService;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojogroup.Goods;
@@ -28,6 +29,9 @@ public class GoodsController {
 	
 	@Reference
 	private ItemSearchService itemSearchService;
+	
+	@Reference(timeout=40000)
+	private ItemPageService itemPageService;
 	
 	/**
 	 * 返回全部列表
@@ -92,7 +96,7 @@ public class GoodsController {
 		}
 	}
 	
-		/**
+	/**
 	 * 查询+分页
 	 * @param brand
 	 * @param page
@@ -105,7 +109,7 @@ public class GoodsController {
 	}
 	
 	/**
-	 * 更新状态
+	 * 更新审核状态
 	 * @param ids
 	 * @param status
 	 */
@@ -122,12 +126,25 @@ public class GoodsController {
 				}else{
 					System.out.println("没有明细数据");
 				}
+				//静态页生成
+				for(Long goodsId:ids){
+					itemPageService.genItemHtml(goodsId);
+				}
 			}
 			return new Result(true, "成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "失败");
 		}
+	}
+	
+	/**
+	 * 测试方法,便于生成测试页面
+	 * @param goodsId
+	 */
+	@RequestMapping("/genHtml")
+	public void genHtml(Long goodsId) {
+		itemPageService.genItemHtml(goodsId);
 	}
 	
 }
