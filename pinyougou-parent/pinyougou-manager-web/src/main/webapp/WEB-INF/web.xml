@@ -21,10 +21,10 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 加载spring-security.xml -->
+	<!-- 加载spring-*.xml 所有文件    包括spring-security.xml spring-activemq.xml -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/spring-security.xml</param-value>
+		<param-value>classpath:spring/spring-*.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

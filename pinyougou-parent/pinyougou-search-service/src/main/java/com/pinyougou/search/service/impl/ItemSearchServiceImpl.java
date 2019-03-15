@@ -284,6 +284,9 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 		return map;
 	}
 
+	/**
+	 * 将当前的集合上传到solr
+	 */
 	@Override
 	public void importList(List list) {
 		solrTemplate.saveBeans(list);	
