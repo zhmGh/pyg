@@ -6,11 +6,11 @@ import java.math.BigDecimal;
 public class TbOrderItem implements Serializable {
     private Long id;
 
-    private Long itemId;
+    private Long itemId;//商品id
 
-    private Long goodsId;
+    private Long goodsId;//SPU_ID
 
-    private Long orderId;
+    private Long orderId;//订单id
 
     private String title;
 
@@ -20,7 +20,7 @@ public class TbOrderItem implements Serializable {
 
     private BigDecimal totalFee;
 
-    private String picPath;
+    private String picPath;//商品图片地址
 
     private String sellerId;
 

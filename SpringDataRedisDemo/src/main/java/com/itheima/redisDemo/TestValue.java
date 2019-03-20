@@ -25,6 +25,6 @@ public class TestValue {
 	}	
 	@Test
 	public void deleteValue(){
-		redisTemplate.delete("name");;
+		redisTemplate.delete("name");
 	}	
 }
