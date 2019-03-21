@@ -117,6 +117,16 @@
 			<artifactId>pinyougou-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.pinyougou</groupId>
+			<artifactId>pinyougou-user-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.pinyougou</groupId>
+			<artifactId>pinyougou-order-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
   </dependencies>
 
 	<build>

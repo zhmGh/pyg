@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pinyougou.cart.service.CartService;
@@ -21,6 +22,7 @@ import com.pinyougou.pojogroup.Cart;
  *
  */
 @Service
+@Transactional
 public class CartServiceImpl implements CartService {
 
 	@Autowired
@@ -72,7 +74,7 @@ public class CartServiceImpl implements CartService {
 				
 			}else {//5.2. 如果有，在原购物车明细上添加数量，更改金额
 				orderItem.setNum(orderItem.getNum()+num);//num可能是整数,也可能是负数
-				orderItem.setTotalFee(new BigDecimal(orderItem.getPrice().longValue()*orderItem.getNum()));
+				orderItem.setTotalFee(new BigDecimal(orderItem.getPrice().doubleValue()*orderItem.getNum()));
 				
 				if(orderItem.getNum()<=0) {//当前商品的数量是0或者0以下,移除该商品
 					cart.getOrderItemList().remove(orderItem);//移除购物车明细

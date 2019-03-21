@@ -85,13 +85,13 @@
 									</div>
 								</li>
 								
-								<li class="yui3-u-1-8"><span class="price">{{item.price}}</span></li>
+								<li class="yui3-u-1-8"><span class="price">{{item.price.toFixed(2)}}</span></li>
 								<li class="yui3-u-1-8">
 									<a href="javascript:void(0)" class="increment mins" ng-click="addGoodsToCartList(item.itemId,-1)">-</a>
 									<input autocomplete="off" type="text" ng-model="item.num"  minnum="1" class="itxt" />
 									<a href="javascript:void(0)" class="increment plus" ng-click="addGoodsToCartList(item.itemId,1)">+</a>
 								</li>
-								<li class="yui3-u-1-8"><span class="sum">{{item.totalFee}}</span></li>
+								<li class="yui3-u-1-8"><span class="sum">{{item.totalFee.toFixed(2)}}</span></li>
 								<li class="yui3-u-1-8">
 									<a href="#none" ng-click="addGoodsToCartList(item.itemId,-item.num)">删除</a><br/>
 									<a href="#none">移到我的关注</a>
