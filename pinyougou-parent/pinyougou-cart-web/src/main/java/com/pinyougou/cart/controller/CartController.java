@@ -87,7 +87,6 @@ public class CartController {
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
 		
-		
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println("当前登录人:"+username);
 		

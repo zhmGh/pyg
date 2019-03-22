@@ -66,7 +66,7 @@ app.controller('itemController',function($scope,$http){
 				+$scope.num,{'withCredentials':true}).success(
 						function(response){
 							if(response.success){
-								location.href='http://localhost:9107//cart.html';
+								location.href='http://localhost:9107/cart.html';
 							}else{
 								alert(response.message);
 							}
