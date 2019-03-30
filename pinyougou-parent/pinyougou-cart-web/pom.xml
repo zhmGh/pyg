@@ -1,14 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.pinyougou</groupId>
-    <artifactId>pinyougou-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>pinyougou-cart-web</artifactId>
-  <packaging>war</packaging>
-  
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.pinyougou</groupId>
+		<artifactId>pinyougou-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>pinyougou-cart-web</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -76,7 +77,7 @@
 			<artifactId>servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- spring-security的jar -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -132,7 +133,26 @@
 			<artifactId>pinyougou-pay-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-  </dependencies>
+	</dependencies>
+
+	<properties>
+		<port>9107</port>
+	</properties>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<port>9107</port>
+			</properties>
+		</profile>
+		<profile>
+			<id>pro</id>
+			<properties>
+				<port>9207</port>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>
@@ -142,12 +162,12 @@
 				<version>2.2</version>
 				<configuration>
 					<!-- 指定端口 -->
-					<port>9107</port>
+					<port>${port}</port>
 					<!-- 请求路径 -->
 					<path>/</path>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-  
+
 </project>
